@@ -1,0 +1,91 @@
+#
+# Add HPGe detectors
+#
+/Griffin/addGriffinBackDetector 1
+/Griffin/addGriffinBackDetector 2
+/Griffin/addGriffinBackDetector 3
+/Griffin/addGriffinBackDetector 6
+/Griffin/addGriffinBackDetector 7
+/Griffin/addGriffinBackDetector 10
+/Griffin/addGriffinBackDetector 11
+/Griffin/addGriffinBackDetector 12
+/Griffin/addGriffinBackDetector 13
+/Griffin/addGriffinBackDetector 14
+/Griffin/addGriffinBackDetector 16
+
+
+#
+# Projectile setup
+#
+/Projectile/A 84
+/Projectile/Z 36
+/Projectile/KE 250 MeV
+/Projectile/Ex 0.881615 MeV
+/Projectile/Lifetime 5.84 ps
+/Projectile/Focus/X 0.0 mm
+/Projectile/Focus/Y 0.0 mm
+/Projectile/Focus/DX 0.0 mm
+/Projectile/Focus/DY 0.0 mm
+
+#
+# Recoil setup
+#
+/Recoil/A 27
+/Recoil/Z 13
+/Recoil/Ex 0 MeV
+/Recoil/Lifetime 0 ps
+
+#
+# Plunger setup
+#
+/Plunger/Backing/Material G4_Galactic
+/Plunger/Backing/Thickness 0.001 um
+/Plunger/Backing/NStep 1
+/Plunger/Target/Material G4_Al
+/Plunger/Target/Thickness 3.96 um
+/Plunger/Target/ScaleDensity 0.528146
+/Plunger/Target/NStep 1
+/Plunger/Stopper/Material G4_Cu
+/Plunger/Stopper/Thickness 4.35 um
+/Plunger/Stopper/ScaleDensity 0.891702
+/Plunger/Stopper/NStep 1
+/Plunger/Separation 60 um
+
+#
+# Equipment shifts
+#
+#/DetectorConstruction/SetZ_TIP -2.751003 mm
+#/DetectorConstruction/ShiftPlunger -5.0 mm
+
+#
+# CsI array setup
+#
+/Results/CsI/SetLYResponse -1. 1.5 1000.
+
+#
+# Reaction setup
+#
+#/Reaction/SetDCmin 11.415953
+
+#
+# Output
+#
+#/Print/Track_Set
+
+#
+# Trigger setup
+#
+#/Trigger/CsIThreshold 24.801 MeV
+/Trigger/CsIThreshold 0.001 MeV
+/Trigger/GammaCsIRecoilCoincidences
+
+#
+# Run
+#
+/run/beamOn 25000
+
+#
+# Stuff to save
+#
+/Results/Tree/Save test.root
+

@@ -1,0 +1,76 @@
+#
+# Add HPGe detectors
+#
+/Griffin/addGriffinBack 16
+
+#
+# Projectile setup
+#
+/Projectile/A 94
+/Projectile/Z 38
+/Projectile/KE 280 MeV
+/Projectile/Ex 0.8369 MeV
+/Projectile/Lifetime 10.00 ps
+/Projectile/Focus/DX 0. mm
+/Projectile/Focus/DY 0. mm
+
+#
+# Recoil setup
+#
+/Recoil/A 27
+/Recoil/Z 13
+/Recoil/Ex 0 MeV
+/Recoil/Lifetime 0 ps
+
+#
+# Plunger setup
+#
+/Plunger/Backing/Material G4_Galactic
+/Plunger/Backing/Thickness 0.001 um
+/Plunger/Backing/NStep 1
+/Plunger/Target/Material G4_Al
+/Plunger/Target/Thickness 4.05 um
+#/Plunger/Target/ScaleDensity 0.649366
+/Plunger/Target/NStep 1
+/Plunger/Stopper/Material G4_Cu
+/Plunger/Stopper/Thickness 4.12 um
+#/Plunger/Stopper/ScaleDensity 0.916299
+/Plunger/Stopper/NStep 1
+/Plunger/Separation 100 um
+
+#
+# Equipment shifts
+#
+#/DetectorConstruction/SetZ_TIP 0.0 mm
+#/DetectorConstruction/ShiftPlunger 0.0 mm
+
+#
+# CsI array setup
+#
+/Results/CsI/SetLYResponse -1. 1.5 1000.
+
+#
+# Reaction setup
+#
+#/Reaction/SetDCmin 13.0
+
+#
+# Output
+#
+#/Print/Track_Set
+
+#
+# Trigger setup
+#
+/Trigger/CsIThreshold 0.001 MeV
+/Trigger/GammaCsIRecoilCoincidences
+
+#
+# Run
+#
+/run/beamOn 1
+
+#
+# Stuff to save
+#
+#/Results/Tree/Save run1.root
