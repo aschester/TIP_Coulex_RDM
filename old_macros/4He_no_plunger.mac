@@ -1,0 +1,40 @@
+#/Griffin/addGriffinForward 16
+/Projectile/A 4
+/Projectile/Z 2
+/Projectile/KE 5.4856 MeV
+/Projectile/Ex 0. MeV
+/Projectile/Lifetime 1000 s
+/Projectile/Focus/X 0. mm
+/Projectile/Focus/Y 0. mm
+/Projectile/Focus/Z 0. mm
+/Projectile/Focus/DX 0. mm
+/Projectile/Focus/DY 0. mm
+/Projectile/Focus/maxAta 1571. mrad
+/Projectile/Focus/maxBta 1571. mrad
+/Recoil/A 27
+/Recoil/Z 13
+/Recoil/Ex 0 MeV
+/Recoil/Lifetime 0 ps
+/Plunger/Backing/Material Vacuum
+/Plunger/Backing/Thickness 0.001 um
+/Plunger/Backing/NStep 1
+/Plunger/Target/Material Vacuum
+/Plunger/Target/Thickness 0.001 um
+/Plunger/Target/NStep 1
+/Plunger/Stopper/Material Vacuum
+/Plunger/Stopper/Thickness 0.001 um
+/Plunger/Stopper/NStep 1
+/Plunger/Separation 100 um
+#/Print/Track_Set
+#/Trigger/GammaCsICoincidences
+#/run/beamOn 10000
+#/Trigger/GammaSingles
+#/run/beamOn 10000
+/Trigger/CsIProjectileSingles
+/run/beamOn 100
+#/Results/CrossSection/FCM
+#/Results/Recoil/LabScatteringAngle
+#/Plunger/Report
+#/Projectile/Report
+#/Recoil/Report
+#/Results/Gamma/RingSpectrum 1

@@ -1,0 +1,36 @@
+/Griffin/addGriffinForward 16
+/Projectile/A 96
+/Projectile/Z 38
+/Projectile/KE 360 MeV
+/Projectile/Ex 0.815 MeV
+/Projectile/Lifetime 4.94 ps
+/Projectile/Focus/DX 0. mm
+/Projectile/Focus/DY 0. mm
+/Recoil/A 12
+/Recoil/Z 6
+/Recoil/Ex 0 MeV
+/Recoil/Lifetime 0 ps
+/Plunger/Backing/Material Vacuum
+/Plunger/Backing/Thickness 0.001 um
+/Plunger/Backing/NStep 1
+/Plunger/Target/Material polyethylene
+/Plunger/Target/ThicknessMgCm3 2.0
+/Plunger/Target/NStep 1
+/Plunger/Stopper/Material Au
+/Plunger/Stopper/Thickness 4 um
+/Plunger/Stopper/NStep 1
+/Plunger/Separation 100 um
+#/Trigger/CsISingles
+#/run/beamOn 20000
+#/Trigger/GammaSingles
+#/run/beamOn 100000
+/Trigger/GammaCsICoincidences
+/run/beamOn 200000
+#/Trigger/CsISingles
+#/run/beamOn 20000
+#/Results/CrossSection/FCM
+#/Results/Recoil/LabScatteringAngle
+#/Plunger/Report
+#/Projectile/Report
+#/Recoil/Report
+#/Results/Gamma/RingSpectrum 1
