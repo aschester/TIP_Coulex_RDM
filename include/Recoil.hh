@@ -29,20 +29,20 @@ public:
 
   void SetRecoilA(G4int A){RecoilA=A;     G4cout<<"----> Recoil A set to              "<<RecoilA<< G4endl;};
   void SetRecoilZ(G4int Z){RecoilZ=Z;     G4cout<<"----> Recoil Z set to              "<<RecoilZ<< G4endl;};
-  void SetRecoilEx(G4int Ex){RecoilEx=Ex;   G4cout<<"----> Recoil Ex set to             "<<RecoilEx/MeV<<" MeV"<< G4endl;};
-  void SetRecoilTau(G4int Tau){RecoilTau=Tau;G4cout<<"----> Recoil decay lifetime set to "<<RecoilTau/ns*1000.<<" ps "<< G4endl;};
+  void SetRecoilEx(G4double Ex){RecoilEx=Ex;   G4cout<<"----> Recoil Ex set to             "<<RecoilEx/MeV<<" MeV"<< G4endl;};
+  void SetRecoilTau(G4double Tau){RecoilTau=Tau;G4cout<<"----> Recoil decay lifetime set to "<<RecoilTau/ns*1000.<<" ps "<< G4endl;};
   G4int getA(){return RecoilA;};
   G4int getZ(){return RecoilZ;};
-  G4int getEx(){return RecoilEx;};
-  G4int getTau(){return RecoilTau;};
+  G4double getEx(){return RecoilEx;};
+  G4double getTau(){return RecoilTau;};
   void Report();
 
 private:
 
   G4int RecoilA;
   G4int RecoilZ;
-  G4int RecoilEx;
-  G4int RecoilTau;
+  G4double RecoilEx;
+  G4double RecoilTau;
 
 };
 

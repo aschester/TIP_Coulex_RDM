@@ -31,8 +31,8 @@ Plunger::Plunger(G4LogicalVolume* experimentalHall_log,Materials* mat)
   // materials
   StopperMaterial = materials->FindMaterial("G4_Cu");
   TargetMaterial  = materials->FindMaterial("G4_Al");
-  PlungerMaterial = materials->FindMaterial("G4_Al");
-  PostMaterial    = materials->FindMaterial("NemaG10");
+  PlungerMaterial = materials->FindMaterial("G4_Galactic");
+  PostMaterial    = materials->FindMaterial("G4_Galactic");
   BackingMaterial = materials->FindMaterial("G4_Galactic");
 
   NstepTar=50;
@@ -46,8 +46,7 @@ Plunger::Plunger(G4LogicalVolume* experimentalHall_log,Materials* mat)
 
   // holder ring thicknesses
   DHRingt=2.54*mm;
-  THRingt=3.048*mm;
-  
+  THRingt=3.048*mm;  
 }
 
 Plunger::~Plunger()
@@ -172,7 +171,6 @@ void Plunger::Construct()
  DHPost0_phys->SetTranslation(DHPost_Pos);
  DHPost1_phys->SetTranslation(DHPost_Pos);
  DHPost2_phys->SetTranslation(DHPost_Pos);
-
  
  G4Colour dgreen (0.0,0.6,0.0);
  G4VisAttributes* Vis = new G4VisAttributes(dgreen);

@@ -8,8 +8,10 @@ CsI_detector_spherical::CsI_detector_spherical(
   materials = mat;
   expHall_log = experimentalHall_log;
   CsI_absorber_thickness = 2.0 * um;
+  // CsI_absorber_thickness = 15.87 * um;
   CsI_Material = materials->FindMaterial("G4_CESIUM_IODIDE");
   CsI_absorber_Material = materials->FindMaterial("G4_MYLAR");
+  // CsI_absorber_Material = materials->FindMaterial("G4_Pb");
   Pos = new G4ThreeVector(0., 0., 0.);
   Pos_abs = new G4ThreeVector(0., 0., 0.);
 }

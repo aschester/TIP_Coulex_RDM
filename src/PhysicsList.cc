@@ -48,6 +48,8 @@ void PhysicsList::ConstructEM()
     G4String particleName = particle->GetParticleName();
  
      // G4cout<<"++++ Particle name ="<<particleName<<G4endl;
+     // getc(stdin);
+
     if (particleName == "gamma") {
       pmanager->AddDiscreteProcess(new G4PhotoElectricEffect());
       pmanager->AddDiscreteProcess(new G4ComptonScattering());
@@ -75,8 +77,15 @@ void PhysicsList::ConstructEM()
     	G4ionIonisation* alphaIoni = new G4ionIonisation();
     	alphaIoni->SetStepFunction(0.05, 0.05*um);
     	pmanager->AddProcess(alphaIoni,                 -1, 2, 2);
-    	//pmanager->AddProcess(new G4NuclearStopping(), -1, 3,-1); // small for light particles
-    	pmanager->AddProcess(new G4StepLimiter,         -1,-1, 4); // what does this do?
+    	pmanager->AddProcess(new G4NuclearStopping(), -1, 3,-1); // small for light particles
+
+	// // alphas can react too
+	// // ---> DANGER: Doesn't work unless projectile is explicitly an alpha particle! <---
+	// theReaction=new Reaction(theProjectile,theRecoil);
+	// theReactionMessenger=new Reaction_Messenger(theReaction);
+	// pmanager->AddProcess(theReaction,               -1,-1, 3);
+
+    	// pmanager->AddProcess(new G4StepLimiter,         -1,-1, 4); // what does this do?
       }
     else if( particleName == "GenericIon") {
       pmanager->AddProcess(new G4hMultipleScattering, -1, 1, 1);

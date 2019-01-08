@@ -94,7 +94,7 @@ class Reaction : public G4VProcess
   Recoil* theRecoil;
   Projectile *theProjectile;
  
-  void Calcfthksi(double,vector<G4double>*);
+  G4int Calcfthksi(double,vector<G4double>*);
   void SetupLookupGenerator();
   G4double GetTheta();
   G4double FineThetaFunction(G4double,G4double,G4double,G4double,G4double,G4double,G4double);

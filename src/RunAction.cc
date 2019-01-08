@@ -55,11 +55,12 @@ void RunAction::BeginOfRunAction(const G4Run*)
   // 	 << " MeV*cm2/mg" << G4endl;  
 
   G4cout<<" Beginning of run "<<G4endl;
+  gettimeofday(&ts,NULL);
+
   thePhysicsList->getReaction()->TargetFaceCrossSection();
   recoilA=thePhysicsList->getReaction()->getTargetRecoilA();
   recoilZ=thePhysicsList->getReaction()->getTargetRecoilZ();
   theResults->SetupRun();
-  gettimeofday(&ts,NULL);
 }
 
 

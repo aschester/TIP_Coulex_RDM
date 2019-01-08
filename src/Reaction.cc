@@ -4,16 +4,15 @@
 Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   : G4VProcess(aName), theRecoil(Rec),theProjectile(Proj)
 {
-
   dcmin=0.; // minimum allowed distance of closest approach
+
 
   reaction_here=false;
   if (verboseLevel>1) {
     G4cout <<GetProcessName() << " is created "<< G4endl;};
  
-  // 18 May 2016
-  // ksi values 1.2-2.0 added
- 
+  // 18 May 2016: ksi values 1.2-2.0 added
+  // 16 Oct 2018: ksi = 4.0 added
   // Table II.8
   ksiArray.push_back(0.0);
   ksiArray.push_back(0.1);
@@ -31,6 +30,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   ksiArray.push_back(1.6);
   ksiArray.push_back(1.8);
   ksiArray.push_back(2.0);
+  ksiArray.push_back(4.0);
 
   thetaArray.push_back(0.);
   thetaArray.push_back(10.);
@@ -68,6 +68,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th000.push_back(0.000E+00);
   th000.push_back(0.000E+00);
   th000.push_back(0.000E+00);
+  th000.push_back(0.000E+00);
 
   th010.push_back(1.385E-01);
   th010.push_back(1.403E-01);
@@ -85,6 +86,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th010.push_back(2.227E-15);
   th010.push_back(1.679E-17);
   th010.push_back(1.220E-19);
+  th010.push_back(1.750E-41);
 
   th020.push_back(1.178E-01);
   th020.push_back(1.286E-01);
@@ -102,6 +104,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th020.push_back(2.265E-08);
   th020.push_back(1.638E-09);
   th020.push_back(1.144E-10);
+  th020.push_back(1.134E-22);
 
   th030.push_back(1.027E-01);
   th030.push_back(1.087E-01);
@@ -119,6 +122,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th030.push_back(2.680E-06);
   th030.push_back(4.032E-07);
   th030.push_back(5.870E-08);
+  th030.push_back(0.929E-16);
 
   th040.push_back(9.160E-02);
   th040.push_back(9.430E-02);
@@ -136,6 +140,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th040.push_back(2.118E-05);
   th040.push_back(4.523E-06);
   th040.push_back(9.360E-07);
+  th040.push_back(0.518E-13);
 
   th050.push_back(8.320E-02);
   th050.push_back(8.370E-02);
@@ -153,6 +158,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th050.push_back(5.950E-05);
   th050.push_back(1.549E-05);
   th050.push_back(3.913E-06);
+  th050.push_back(1.643E-12);
 
   th060.push_back(7.680E-02);
   th060.push_back(7.580E-02);
@@ -170,6 +176,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th060.push_back(1.022E-04);
   th060.push_back(3.001E-05);
   th060.push_back(8.570E-06);
+  th060.push_back(1.269E-11);
 
   th070.push_back(7.190E-02);
   th070.push_back(6.970E-02);
@@ -187,6 +194,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th070.push_back(1.339E-04);
   th070.push_back(4.249E-05);
   th070.push_back(1.312E-05);
+  th070.push_back(4.434E-11);
 
   th080.push_back(6.800E-02);
   th080.push_back(6.490E-02);
@@ -204,6 +212,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th080.push_back(1.494E-04);
   th080.push_back(4.985E-05);
   th080.push_back(1.621E-05);
+  th080.push_back(0.950E-10);
 
   th090.push_back(6.500E-02);
   th090.push_back(6.120E-02);
@@ -221,6 +230,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th090.push_back(1.506E-04);
   th090.push_back(5.190E-05);
   th090.push_back(1.743E-05);
+  th090.push_back(1.477E-10);
 
   th100.push_back(6.270E-02);
   th100.push_back(5.830E-02);
@@ -238,6 +248,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th100.push_back(1.420E-04);
   th100.push_back(4.983E-05);
   th100.push_back(1.708E-05);
+  th100.push_back(1.842E-10);
 
   th110.push_back(6.080E-02);
   th110.push_back(5.590E-02);
@@ -255,6 +266,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th110.push_back(1.282E-04);
   th110.push_back(4.538E-05);
   th110.push_back(1.572E-05);
+  th110.push_back(1.964E-10);
 
   th120.push_back(5.930E-02);
   th120.push_back(5.410E-02);
@@ -272,6 +284,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th120.push_back(1.125E-04);
   th120.push_back(3.990E-05);
   th120.push_back(1.387E-05);
+  th120.push_back(1.869E-10);
 
   th130.push_back(5.820E-02);
   th130.push_back(5.260E-02);
@@ -289,6 +302,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th130.push_back(9.730E-05);
   th130.push_back(3.439E-05);
   th130.push_back(1.193E-05);
+  th130.push_back(1.640E-10);
 
   th140.push_back(5.730E-02);
   th140.push_back(5.150E-02);
@@ -306,6 +320,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th140.push_back(8.400E-05);
   th140.push_back(2.947E-05);
   th140.push_back(1.016E-05);
+  th140.push_back(1.364E-10);
 
   th150.push_back(5.660E-02);
   th150.push_back(5.070E-02);
@@ -323,6 +338,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th150.push_back(7.330E-05);
   th150.push_back(2.546E-05);
   th150.push_back(8.700E-06);
+  th150.push_back(1.106E-10);
 
   th160.push_back(5.620E-02);
   th160.push_back(5.010E-02);
@@ -340,6 +356,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th160.push_back(6.560E-05);
   th160.push_back(2.254E-05);
   th160.push_back(7.630E-06);
+  th160.push_back(0.904E-10);
 
   th170.push_back(5.590E-02);
   th170.push_back(4.980E-02);
@@ -357,6 +374,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th170.push_back(6.090E-05);
   th170.push_back(2.078E-05);
   th170.push_back(6.980E-06);
+  th170.push_back(0.779E-10);
 
   th180.push_back(5.580E-02);
   th180.push_back(4.969E-02);
@@ -374,237 +392,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
   th180.push_back(5.930E-05);
   th180.push_back(2.019E-05);
   th180.push_back(6.760E-06);
-
-  // Large angle differential cross section
-  // "E4ish" shape
-  // 0.5*[1-cos(theta)]
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-  // th000.push_back(0.000E+00);
-
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-  // th010.push_back(7.596E-03);
-
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-  // th020.push_back(3.015E-02);
-
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-  // th030.push_back(6.699E-02);
-
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-  // th040.push_back(1.170E-01);
-
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-  // th050.push_back(1.786E-01);
-
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-  // th060.push_back(2.500E-01);
-
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-  // th070.push_back(3.290E-01);
-
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-  // th080.push_back(4.132E-01);
-
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-  // th090.push_back(5.000E-01);
-
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-  // th100.push_back(5.868E-01);
-
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-  // th110.push_back(6.710E-01);
-
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-  // th120.push_back(7.500E-01);
-
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-  // th130.push_back(8.214E-01);
-
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-  // th140.push_back(8.830E-01);
-
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-  // th150.push_back(9.330E-01);
-
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-  // th160.push_back(9.698E-01);
-
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-  // th170.push_back(9.924E-01);
-
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
-  // th180.push_back(1.000E+00);
+  th180.push_back(0.737E-10);
 
   fthksi.push_back(th000);
   fthksi.push_back(th010);
@@ -628,11 +416,7 @@ Reaction::Reaction(Projectile* Proj, Recoil* Rec, const G4String& aName)
 
 }
 //---------------------------------------------------------------------
-Reaction::~Reaction() 
-{
-  ;                                     
-}  
-                                
+Reaction::~Reaction() { ; }
 //---------------------------------------------------------------------
 G4VParticleChange* Reaction::PostStepDoIt(
 			     const G4Track& aTrack,
@@ -640,6 +424,9 @@ G4VParticleChange* Reaction::PostStepDoIt(
 			    )
 			    			    			    
 {
+
+  // printf("PostStepDoIt in reaction\n");
+  // getc(stdin);
 
   aParticleChange.Initialize(aTrack);
 //
@@ -652,7 +439,7 @@ G4VParticleChange* Reaction::PostStepDoIt(
       G4DynamicParticle* RecoilOut;
       ProjectileOut =new G4DynamicParticle();
       RecoilOut =new G4DynamicParticle();
-   
+
       if(SetupReactionProducts(aTrack,ProjectileOut,RecoilOut))
 	{
 	  aParticleChange.ProposeTrackStatus(fStopAndKill);
@@ -684,11 +471,13 @@ G4double Reaction::PostStepGetPhysicalInteractionLength(
                              G4ForceCondition* condition
                             )
 {
-
   reaction_here=false;
   *condition=NotForced;
-
-    G4String name=aTrack.GetVolume()->GetLogicalVolume()->GetName();
+  
+  G4String name=aTrack.GetVolume()->GetLogicalVolume()->GetName();
+  
+  // G4cout << "volume name " << name << G4endl;
+  // getc(stdin);
   
   if(name=="target_log")
     {
@@ -698,10 +487,10 @@ G4double Reaction::PostStepGetPhysicalInteractionLength(
       G4double Z=ZReaction-ZCurrent;
       if(Z<0)
 	{
-	  	      // G4cout<<" Past the reaction point"<<G4endl;
-	  	      // G4cout<<" Volume "<<name<<G4endl;
-	  	      // G4cout<<" Z[mm]: reaction "<<ZReaction/mm<<" current "<<ZCurrent/mm<<" DZ "<<Z/mm<<G4endl;
-		      // getc(stdin);
+	  // G4cout<<" Past the reaction point"<<G4endl;
+	  // G4cout<<" Volume "<<name<<G4endl;
+	  // G4cout<<" Z[mm]: reaction "<<ZReaction/mm<<" current "<<ZCurrent/mm<<" DZ "<<Z/mm<<G4endl;
+	  // getc(stdin);
 	  return DBL_MAX;
 	}
       if(Z>eps)
@@ -709,10 +498,10 @@ G4double Reaction::PostStepGetPhysicalInteractionLength(
 	  G4ThreeVector dir=aTrack.GetDynamicParticle()->GetMomentumDirection();
 	      
 	  dir*=(ZReaction-ZCurrent);
-	  	      // G4cout<<" Before the reaction point"<<G4endl;
-	  	      // G4cout<<" Volume "<<name<<G4endl;
-	  	      // G4cout<<" Z[mm]: reaction "<<ZReaction/mm<<" current "<<ZCurrent/mm<<" DZ "<<Z/mm<<G4endl;
-		      // getc(stdin);
+	  // G4cout<<" Before the reaction point"<<G4endl;
+	  // G4cout<<" Volume "<<name<<G4endl;
+	  // G4cout<<" Z[mm]: reaction "<<ZReaction/mm<<" current "<<ZCurrent/mm<<" DZ "<<Z/mm<<G4endl;
+	  // getc(stdin);
 	  return dir.mag();
 	}
       if(Z<=eps)
@@ -747,10 +536,13 @@ G4bool Reaction::SetupReactionProducts(const G4Track & aTrack,G4DynamicParticle*
   G4double dc; // distance of closest approach in fm
 
   Ain=aTrack.GetDynamicParticle()->GetDefinition()->GetAtomicMass();
-  if(Ain!=A1) return FALSE;
-  Zin=aTrack.GetDynamicParticle()->GetDefinition()->GetAtomicNumber();
-  if(Zin!=Z1) return FALSE;
+  if(Ain!=A1) 
+    return FALSE;
 
+  Zin=aTrack.GetDynamicParticle()->GetDefinition()->GetAtomicNumber();
+  if(Zin!=Z1) 
+    return FALSE;
+  
   ProjectileOut->SetDefinition(proj);
   RecoilOut->SetDefinition(rec);
 
@@ -759,8 +551,6 @@ G4bool Reaction::SetupReactionProducts(const G4Track & aTrack,G4DynamicParticle*
   KEIn=aTrack.GetDynamicParticle()->GetKineticEnergy(); // energy of the incident particle
   pIn=aTrack.GetMomentum(); 
   //tauIn=aTrack.GetProperTime(); // not currently used
-
-
 
   /* check stopping for beam */
   // G4cout<<"posIn [mm]: ("<<posIn.getX()<<","<<posIn.getY()<<","<<posIn.getZ()<<")"<<G4endl;
@@ -777,14 +567,17 @@ G4bool Reaction::SetupReactionProducts(const G4Track & aTrack,G4DynamicParticle*
   Eprime=KEIn-(A1+A2)/A2*DE; // internal energy of the center of mass 1/2*mu*Vrel^2
   tbar=sqrt(KEIn/Eprime);
   t=A1/A2*tbar;
+
+  // printf("Eprime %f tbar %f t %f\n",Eprime,tbar,t);
+  // getc(stdin);
   
   theta=GetTheta(); // in the CM
   // printf("theta = %.2f\n",theta);
-
+  
   dc=0.5*AHC*Z1*Z2/KEIn*(1+A1/A2)*(1+1/sin(0.5*theta*DEG2RAD));
   // printf("KEin %.4f theta %.4f ndc %.4f\n",KEIn,theta,dc);
   // getc(stdin);
-
+  
   if(dc > dcmin)
     {
       // printf("dc > dcmin = %.2f\n",dcmin);
@@ -863,7 +656,7 @@ G4bool Reaction::SetupReactionProducts(const G4Track & aTrack,G4DynamicParticle*
       // G4cout<<"f "<<dfdOmega(ksi,theta)<<" face "<<dfofTheta(theta,&thefth)<<G4endl;
       // getc(stdin);
       theWeight=Eprime/EprimeFace*dfdOmega(ksi,theta)/dfofTheta(theta,&thefth);
-      
+    
       if(theWeight>0)
       return TRUE;
       
@@ -876,6 +669,8 @@ G4bool Reaction::SetupReactionProducts(const G4Track & aTrack,G4DynamicParticle*
 //---------------------------------------------------------
 void Reaction::TargetFaceCrossSection()
 {
+  G4cout << "---------- SETUP OF DECAY PRODUCTS ----------" << G4endl;
+
   G4double T1,T2;
   G4double BE2;
   G4double  KE;
@@ -893,23 +688,23 @@ void Reaction::TargetFaceCrossSection()
 
  printf("\nMinimum distance of closest approach: %5.2f fm\n",dcmin);
 
- if(Ex1*Ex2!=0.)
+ if(Ex1*Ex2 != 0.0)
     {
       printf("Simultaneous excitation of the projectile and target are not handled\n");
       exit(0);	     
     }
-  if(Ex1+Ex2==0.)
+  if(Ex1+Ex2 == 0.0)
     {
       printf("Excitation of either the projectile or the target has to be defined\n");
       exit(0);	     
     }
 
-  if(Ex1>0.&&Ex2==0) 
+  if( (Ex1 > 0.0) && (Ex2 == 0.0) ) 
     {
       ProjEx = true;
       printf("Projectile excitation\n");
-      if(T1>0)
-	BE2=5.*0.082/T1/pow(Ex1,5.); // from Eq. II A.56 multiplied by ahc (a = fine struct. const.)
+      if(T1 > 0)
+	BE2=5.0*0.08162025/T1/pow(Ex1,5.0); // from Eq. II A.56 multiplied by ahc (a = fine struct. const.)
       else
 	{
 	  printf("Projectile de-excitation lifetime not defined %4.2f\n",T1);
@@ -920,15 +715,14 @@ void Reaction::TargetFaceCrossSection()
     {
       ProjEx=false;
       printf("Target recoil excitation\n");
-      if(T2>0)
-	BE2=5.*0.082/T2/pow(Ex2,5.); // from Eq. II A.56 multiplied by ahc (a = fine struct. const.)
+      if(T2 > 0)
+	BE2=5.0*0.08162025/T2/pow(Ex2,5.0); // from Eq. II A.56 multiplied by ahc (a = fine struct. const.)
      else
 	{
 	  printf("Target recoil de-excitation lifetime not defined %4.2f\n",T2);
 	  exit(0);
 	}
-    }
-  
+    }  
 
   printf("Projectile A                        : %5d\n",(int)A1);
   printf("Projectile Z                        : %5d\n",(int)Z1);
@@ -948,16 +742,16 @@ void Reaction::TargetFaceCrossSection()
     }
  
   if(ProjEx)
-    DE=Ex1;
+    DE = Ex1;
   else
-    DE=Ex2;
+    DE = Ex2;
 
-  KE=theProjectile->getKE(); // this is the kinetic energy of the projectile in the lab used to get the vi two lines down
-  DEp=(1.+A1/A2)*DE;         // Eq. II C.4 and explanation below (CM internal energy 1/2*mu*Vrel^2)
-  EprimeFace=KE-DEp;
-  ksiFace=GetKsi(KE);
-  c=4.819*A1/Z1/Z1/(1.+A1/A2)/(1.+A1/A2); // Eq. II C.17 the case of E2 with Z1 instead of Z2, see Sec. II A.6
-  ce=c*(KE-DEp)*BE2;                      // Part of Eq. II C.15
+  KE = theProjectile->getKE(); // this is the kinetic energy of the projectile in the lab used to get the vi two lines down
+  DEp = (1.0+A1/A2)*DE;        // Eq. II C.4 and explanation below (CM internal energy 1/2*mu*Vrel^2)
+  EprimeFace = KE-DEp;
+  ksiFace = GetKsi(KE);
+  c = 4.819*A1/Z1/Z1/(1.0+A1/A2)/(1.0+A1/A2); // Eq. II C.17 the case of E2 with Z1 instead of Z2, see Sec. II A.6
+  ce = c*(KE-DEp)*BE2;                        // Part of Eq. II C.15
   
   //clear vectors needed
   thefth.clear();
@@ -965,7 +759,8 @@ void Reaction::TargetFaceCrossSection()
   fbin.clear();
   thlookup.clear();
 
-  Calcfthksi(ksiFace,&thefth); 
+  Calcfthksi(ksiFace, &thefth); 
+
   // G4cout<<"Printing thefth for ksi "<<ksiFace<<G4endl;
   // vector<G4double>::iterator it;
   // it=thefth.begin();
@@ -974,18 +769,17 @@ void Reaction::TargetFaceCrossSection()
   // getc(stdin);
 
   SetupLookupGenerator();
-  sigmaFace=ce*thef; // Full Eq. II C.15, cross section on the target face in barns
+  sigmaFace = ce*thef; // Full Eq. II C.15, cross section on the target face in barns
   printf("Target face cross section           :%10.4f b\n",sigmaFace);
 
-  proj=G4IonTable::GetIonTable()->GetIon(Z1,A1,Ex1);
-  rec=G4IonTable::GetIonTable()->GetIon(Z2,A2,Ex2);
+  proj = G4IonTable::GetIonTable()->GetIon(Z1,A1,Ex1);
+  rec = G4IonTable::GetIonTable()->GetIon(Z2,A2,Ex2);
 
   if (proj == NULL) {
     G4cerr << "Could not find outgoing projectile in the particle table "
            << Z1 << " " << A1 << G4endl;
     exit(EXIT_FAILURE);
   }
-
 
   if (rec == NULL) {
     G4cerr << "Could not find outgoing recoil in the particle table "
@@ -1000,30 +794,27 @@ void Reaction::TargetFaceCrossSection()
       proj->SetPDGLifeTime(theProjectile->getTau());
       G4DecayTable *ProjDecTab = proj->GetDecayTable(); 
       if (ProjDecTab == NULL) {
-	      ProjDecTab = new G4DecayTable();
-	      proj->SetDecayTable(ProjDecTab);
+	ProjDecTab = new G4DecayTable();
+	proj->SetDecayTable(ProjDecTab);
       }
       GammaDecayChannel *ProjDec = new GammaDecayChannel(-1,proj,1,Ex1,Ex1); // single step
       ProjDecTab->Insert(ProjDec);
-      //ProjDecTab->DumpInfo();
-      //getc(stdin);
+      // ProjDecTab->DumpInfo();
+      // getc(stdin);
       // make sure that the projectile has the decay process in its manager
       G4ProcessManager *proj_pm = proj->GetProcessManager();
       if (proj_pm == NULL) {
-	      G4cerr << "Could not find process manager for the projectile." << G4endl;
-	      exit(EXIT_FAILURE);
+	G4cerr << "Could not find process manager for the projectile." << G4endl;
+	exit(EXIT_FAILURE);
       }
-      decay = new G4Decay();
-   
+      decay = new G4Decay();      
       if (proj_pm->GetProcessActivation(decay) == false) {
-	      G4cout<<"-> adding the projectile decay process"<<G4endl;
-	      proj_pm->SetParticleType(proj);
-	      proj_pm->AddProcess(decay,1,-1,5);
-      }
-      
-      //proj_pm->DumpInfo();
-      //getc(stdin);
-	
+	G4cout<<"-> adding the projectile decay process"<<G4endl;
+	proj_pm->SetParticleType(proj);
+	proj_pm->AddProcess(decay,1,-1,5);
+      }      
+      // proj_pm->DumpInfo();
+      // getc(stdin);      
     }
   else
     {
@@ -1038,6 +829,7 @@ void Reaction::TargetFaceCrossSection()
       GammaDecayChannel *RecDec = new GammaDecayChannel(-1,rec,1,Ex2,Ex2); // single step
       RecDecTab->Insert(RecDec);
       // RecDecTab->DumpInfo();
+      // getc(stdin);
       // make sure that the recoil has the decay process in its manager
       G4ProcessManager *rec_pm = rec->GetProcessManager();
       if (rec_pm == NULL) {
@@ -1047,24 +839,27 @@ void Reaction::TargetFaceCrossSection()
       decay = new G4Decay();
       if (rec_pm->GetProcessActivation(decay) == false) {
 	G4cout<<"-> adding the recoil decay process"<<G4endl;
-  rec_pm->SetParticleType(proj);
+	rec_pm->SetParticleType(rec);
 	rec_pm->AddProcess(decay,1,-1,5);
       }
-        // rec_pm->DumpInfo();
-	// getc(stdin);
+      // rec_pm->DumpInfo();
+      // getc(stdin);
     }
+  
+  sumWeights = 0.0;
+  sumProj = 0;
 
-  sumWeights=0.;
-  sumProj=0;
- 
   vector <G4double> *f=theProjectile->getf();
   vector <G4double> *th=theProjectile->getth();
   for(unsigned i=0;i<thetaArray.size();i++)
     {
-      (*th)[i]=thetaArray[i];
-      (*f)[i]=dfofTheta(thetaArray[i],&thefth);
+      (*th)[i] = thetaArray[i];
+      (*f)[i] = dfofTheta(thetaArray[i],&thefth);
     }
+
   theProjectile->setthef(thef);
+
+  G4cout << "---------- END OF DECAY PRODUCT SETUP ----------" << G4endl;
 }
 
 //---------------------------------------------------------
@@ -1087,9 +882,11 @@ void Reaction::SetupLookupGenerator()
       F*=TWOPI;
       fbin.push_back(F);
     }
+
   thef=0;
   for(i=0;i<thbin.size();i++)
     thef+=fbin[i];
+
   limits.push_back(0);
   F=0.;
   for(i=0;i<thbin.size();i++)
@@ -1106,31 +903,33 @@ void Reaction::SetupLookupGenerator()
 //---------------------------------------------------------
 G4double Reaction::GetKsi(G4double KE)
 {
-  //G4double vi,vf;
+  // G4double vi,vf; // not currently used
   G4double zeta,sqz;
-  //G4double a;
+  // G4double a; // not currently used
   G4double eti,etf,nu,ksi;
-  //G4double etit,nut,ksit;
-  //vi=sqrt(2.*KE/A1/XAMU);           // Eq. II C.2 truly v/c not v, this is the relative speed before the colision 
+  // G4double etit,nut,ksit; // not currently used
+  // vi = sqrt(2.*KE/A1/XAMU);           // Eq. II C.2 truly v/c not v, this is the relative speed before the colision 
                                       // same in the lab and in the centre of mass - not currently used
-  zeta=DEp/KE;                        // Eq. II C.5 dimensionless
-  sqz=sqrt(1-zeta);
-  //vf=vi*sqz;                        // Eq. II C.6 v/c not v, relative speed after the collision, to see use the target-fixed coordinate frame - not currently used
-  //a=0.7199*(1.+A1/A2)*Z1*Z2/KE/sqz; // Eq. II C.7 in fm - not currently used
-  eti=0.5*Z1*Z2*sqrt(A1/10.008/KE);   // Eq. II C.8
-  etf=eti/sqz;                        // Eq. II C.9
-  nu=2.*sqrt(1/eti/eti-1/etf/etf);    // Eq. II C.10 top
-  // nut=4/Z1/Z2*sqrt(10.008*DEp/A1); // Eq. II C.10 bottom, equal to prev. line
-  // etit=2*sqrt(zeta)/nu;            // Eq. II C.11
-  ksi=2/nu*sqrt(zeta)*(1/sqz-1);      // Eq. II C.12
-  // ksit=0.079051*Z1*Z2*sqrt(A1)*DEp/(KE-0.5*DEp)/sqrt(KE-0.5*DEp)*(1+0.15625*DEp*DEp/KE/KE); // Eq II C.13 - unused so far
 
-  // printf("E %8.4f [MeV] beta_i %8.4f [%%] %8.4f [%%] a %8.4f [fm]\n",KE,vi*100,vf*100,a);
+  zeta = DEp/KE;                        // Eq. II C.5 dimensionless
+  sqz = sqrt(1.0-zeta);
+  // vf = vi*sqz;                        // Eq. II C.6 v/c not v, relative speed after the collision, to see use the target-fixed coordinate frame - not currently used
+  // a = 0.7199*(1.0+A1/A2)*Z1*Z2/KE/sqz; // Eq. II C.7 in fm - not currently used
+  eti = 0.5*Z1*Z2*sqrt(A1/10.008/KE);   // Eq. II C.8
+  etf = eti/sqz;                        // Eq. II C.9
+  nu = 2.0*sqrt(1/eti/eti-1/etf/etf);    // Eq. II C.10 top
+  // nut = 4.0/Z1/Z2*sqrt(10.008*DEp/A1); // Eq. II C.10 bottom, equal to prev. line - not currently used
+  // etit = 2.0*sqrt(zeta)/nu;            // Eq. II C.11 - not currently used
+  ksi = 2.0/nu*sqrt(zeta)*(1.0/sqz-1.0);      // Eq. II C.12
+  // ksit = 0.079051*Z1*Z2*sqrt(A1)*DEp/(KE-0.5*DEp)/sqrt(KE-0.5*DEp)*(1.0+0.15625*DEp*DEp/KE/KE); // Eq II C.13 - not currently used
+  
+  // printf("E %8.4f [MeV] beta_i %8.4f [%%] beta_f %8.4f [%%] a %8.4f [fm]\n",KE,vi*100,vf*100,a);
   // printf("eta_i %8.4f eta_f %8.4f\n",eti,etf);
   // printf("eta_i %8.4f eta_i %8.4f\n",eti,etit);
   // printf("nu    %8.4f [%%] nu_t  %8.4f [%%]\n",nu*100,nut*100);
   // printf("ksi   %8.4f\n",ksi);
-  
+  // getc(stdin);
+   
   return ksi;
 }
 //---------------------------------------------------------
@@ -1188,23 +987,18 @@ G4double Reaction::FineThetaFunction(G4double th,G4double th1, G4double th2, G4d
   return g/F-r;
 }
 //---------------------------------------------------------
-double Reaction::dfdOmega(G4double ksi,G4double theta)
+G4double Reaction::dfdOmega(G4double ksi,G4double theta)
 {
-  /***** ALERT: nasty memory leak!! *****/
-  /* 
-     vector memory never deallocated 
-     when you leave scope! 
-  */
-  // vector<G4double>* fth=new vector<G4double>;
-  // Calcfthksi(ksi,fth);
-  // return dfofTheta(theta,fth);
-
   vector<G4double>* fth=new vector<G4double>;
-  G4double dfT=0.;
-  Calcfthksi(ksi,fth);
-  dfT=dfofTheta(theta,fth);
-  delete fth; // free the memory!
-  return dfT;
+  if(Calcfthksi(ksi,fth)) {
+    G4double dfT = dfofTheta(theta,fth);
+    delete fth; // free the memory!
+    return dfT;
+  }
+  else {
+    delete fth;
+    return 0.0;
+  }
 }
 //---------------------------------------------------------
 G4double Reaction::dfofTheta(G4double theta,vector<G4double>* fth)
@@ -1231,16 +1025,16 @@ G4double Reaction::dfofTheta(G4double theta,vector<G4double>* fth)
   return y;
 }
 //---------------------------------------------------------
-void Reaction::Calcfthksi(G4double ksi,vector<G4double>* fth)
+G4int Reaction::Calcfthksi(G4double ksi,vector<G4double>* fth)
 {
   G4int shift;
   G4double x1,x2,y1,y2,y,dx;
 
-  if((ksi<0.)||(ksi>2.))
+  if( (ksi <= 0.0) || (ksi >= 4.0) )
     {
-      G4cout<<" The value of ksi "<<ksi<<" is outside of the currently programed range of [0:2]"<<G4endl;
-      G4cout<<" Terminating execution"<<G4endl;
-      exit(0);
+      G4cout<<" The value of ksi "<<ksi<<" is outside of the currently programed range of [0:4]!"<<G4endl;
+      G4cout<<" Event weight set to 0!"<<G4endl;
+      return 0;
     }
   shift=0;
   vector<G4double>::iterator itksi = ksiArray.begin();
@@ -1270,4 +1064,6 @@ void Reaction::Calcfthksi(G4double ksi,vector<G4double>* fth)
   // for(;it<fth.end();it++)
   //   G4cout<<(*it)<<G4endl;
   // getc(stdin);
+
+  return 1;
 }

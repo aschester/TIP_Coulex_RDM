@@ -61,7 +61,7 @@ if( command == RExCmd )
    { theRecoil->SetRecoilEx(RExCmd->GetNewDoubleValue(newValue));} 
 
 if( command == RTauCmd )
-   { theRecoil->SetRecoilTau(RTauCmd->GetNewDoubleValue(newValue));} 
+  { theRecoil->SetRecoilTau(RTauCmd->GetNewDoubleValue(newValue));} 
 
  if( command == RRepCmd )
    { theRecoil->Report();}
